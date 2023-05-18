@@ -9,6 +9,10 @@ enum class Error {
   OUT_OF_RANGE
 };
 
+// Forward declare functions.
+Error convert_input_to_number(const char* string_in, int& pct_throttle_out);
+int percent_to_microseconds(const int percent);
+
 // Define ESC "servo" globally so it can be used in both setup and loop.
 Servo esc;
 const uint8_t ESC_PIN = 9;
@@ -40,8 +44,8 @@ void loop() {
 
     // If no error detected during string conversion then write out to the servo.
     if (err == Error::NO_ERROR) {
-      esc.writeMicroseconds(percent_to_microseconds(pct_throttle))
-  }
+      esc.writeMicroseconds(percent_to_microseconds(pct_throttle));
+    }
   }
 }
 
