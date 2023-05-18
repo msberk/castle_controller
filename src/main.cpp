@@ -24,9 +24,10 @@ const uint8_t BUF_LEN = 200;
 void setup() {
   // Open up serial with computer
   Serial.begin(SERIAL_BAUD_RATE);
-  // Start servo control.
+  // Start ESC control.
   esc.attach(ESC_PIN);
-  esc.writeMicroseconds(1000);
+  // Initialize to zero throttle
+  esc.writeMicroseconds(percent_to_microseconds(0));
 }
 
 
