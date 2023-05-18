@@ -12,6 +12,7 @@ enum class Error {
 // Forward declare functions.
 Error convert_input_to_number(const char* string_in, int& pct_throttle_out);
 int percent_to_microseconds(const int percent);
+void flush_serial_input();
 
 // Define ESC "servo" globally so it can be used in both setup and loop.
 Servo esc;
@@ -47,6 +48,7 @@ void loop() {
     if (err == Error::NO_ERROR) {
       esc.writeMicroseconds(percent_to_microseconds(pct_throttle));
     }
+    flush_serial_input();
   }
 }
 
@@ -80,4 +82,8 @@ Error convert_input_to_number(const char* string_in, int& pct_throttle_out) {
 // Function to convert percent throttle commands to PWM commands
 int percent_to_microseconds(const int percent) {
   return map(percent, 0, 100, 1000, 2000);
+}
+
+void flush_serial_input() {
+  while (Serial.read() != -1) {}
 }
