@@ -65,11 +65,14 @@ Error convert_input_to_number(const char* string_in, int& pct_throttle_out) {
   } 
   // If below 0% or over 100%, invalid setting.
   else if (pct_throttle_out < 0 || pct_throttle_out > 100) {
-    Serial.println("Please enter a number between 0 and 100");
+    Serial.println("Please enter a number between 0 and 100.");
     return Error::OUT_OF_RANGE;
   } 
   // Otherwise fine.
   else {
+    Serial.print("Set throttle to ");
+    Serial.print(pct_throttle_out);
+    Serial.println("%.");
     return Error::NO_ERROR;
   }
 }
